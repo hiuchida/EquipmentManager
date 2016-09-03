@@ -1,6 +1,6 @@
 /*データベース作成*/
 drop database if exists bihin;
-create database bihin;
+create database bihin character set utf8;
 use bihin;
 
 /*テーブル作成(備品管理)*/
