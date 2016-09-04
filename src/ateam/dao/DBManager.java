@@ -29,7 +29,7 @@ public class DBManager {
 		}
 	}
 
-	//更新SQLを発行(パラメータ文字列２つ)
+	// 更新SQLを発行(パラメータ文字列２つ)
 	public static int doUpdate(String sql, String pmt1, String pmt2) throws SQLException {
 		Connection con = null;
 		PreparedStatement smt = null;
@@ -56,7 +56,7 @@ public class DBManager {
 		}
 	}
 
-	//更新SQLを発行(パラメータ文字列2つデータ1つ)
+	// 更新SQLを発行(パラメータ文字列2つデータ1つ)
 	public static int doUpdate(String sql, String pmt1, Date pmt2, String pmt3) throws SQLException {
 		Connection con = null;
 		PreparedStatement smt = null;
@@ -120,7 +120,7 @@ public class DBManager {
 		}
 	}
 
-	//検索SQLを発行
+	// 検索SQLを発行
 	public static <T> List<T> getList(String sql, ResultSetBeanMapping<T> mapping) throws SQLException {
 		Connection con = null;
 		Statement smt = null;
@@ -160,7 +160,7 @@ public class DBManager {
 		}
 	}
 
-	//検索発行（パラメータ2つ）
+	// 検索発行（パラメータ2つ）
 	public static <T> List<T> getSearchList(String sql, String pmt1, String pmt2, ResultSetBeanMapping<T> mapping)
 			throws SQLException {
 		Connection con = null;
@@ -203,7 +203,7 @@ public class DBManager {
 		}
 	}
 
-	//検索発行（マイページ）
+	// 検索発行（マイページ）
 	public static <T> List<T> getList(String sql, String pmt, ResultSetBeanMapping<T> mapping) throws SQLException {
 		Connection con = null;
 		PreparedStatement smt = null;
@@ -244,7 +244,7 @@ public class DBManager {
 		}
 	}
 
-	//検索発行（パラメータ１つ）
+	// 検索発行（パラメータ１つ）
 	public static <T> List<T> getSearchList(String sql, int pmt, ResultSetBeanMapping<T> mapping) throws SQLException {
 		Connection con = null;
 		PreparedStatement smt = null;

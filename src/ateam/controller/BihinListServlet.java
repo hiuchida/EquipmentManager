@@ -17,40 +17,42 @@ import ateam.util.LoginUtil;
  */
 @WebServlet("/BihinListServlet")
 public class BihinListServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BihinListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public BihinListServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        HttpSession session = request.getSession(false);
-        if (!LoginUtil.isLogined(session)) {
-            request.setAttribute("errorMessage", "ログインしてください");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        } else {
-            request.setCharacterEncoding("UTF-8");
-            request.setAttribute("bihinList", BihinListLogic.getAllBihinList());
-            request.getRequestDispatcher("/bihinList.jsp").forward(request, response);
-        }
-    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		if (!LoginUtil.isLogined(session)) {
+			request.setAttribute("errorMessage", "ログインしてください");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		} else {
+			request.setCharacterEncoding("UTF-8");
+			request.setAttribute("bihinList", BihinListLogic.getAllBihinList());
+			request.getRequestDispatcher("/bihinList.jsp").forward(request, response);
+		}
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        doGet(request, response);
-    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
 
 }
