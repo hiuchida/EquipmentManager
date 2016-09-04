@@ -1,6 +1,8 @@
 package ateam.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ateam.model.Department;
 
@@ -16,9 +18,11 @@ public class DepartmentDAO {
 	}
 
 	public Department getDepartment(String deptID) {
-		String sql = "SELECT *  FROM DepartmentKanri WHERE deptID = ?";
+		String sql = "SELECT * FROM DepartmentKanri WHERE deptID = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(deptID);
 		try {
-			return DBManager.getObject(sql, deptID, mapping);
+			return DBManager.getObject(sql, params, mapping);
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
 		}

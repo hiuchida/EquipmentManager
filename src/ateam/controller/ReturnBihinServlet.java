@@ -49,7 +49,7 @@ public class ReturnBihinServlet extends HttpServlet {
 			response.sendRedirect("MyPageServlet");
 			return;
 		}
-		if (ReturnBihinLogic.returnBihin(user.getUserID(), bihinID)) {
+		if (ReturnBihinLogic.returnBihin(bihinID, user.getUserID())) {
 			request.getRequestDispatcher("/returnSuccess.jsp").forward(request, response);
 		} else {
 			request.getRequestDispatcher("/returnFail.jsp").forward(request, response);

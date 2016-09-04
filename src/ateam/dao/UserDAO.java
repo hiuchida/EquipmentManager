@@ -1,6 +1,8 @@
 package ateam.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ateam.model.User;
 
@@ -16,9 +18,11 @@ public class UserDAO {
 	}
 
 	public User getUser(String userID) {
-		String sql = "SELECT *  FROM UserKanri WHERE userID = ?";
+		String sql = "SELECT * FROM UserKanri WHERE userID = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(userID);
 		try {
-			return DBManager.getObject(sql, userID, mapping);
+			return DBManager.getObject(sql, params, mapping);
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
 		}

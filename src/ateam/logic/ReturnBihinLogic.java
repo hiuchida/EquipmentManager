@@ -5,16 +5,17 @@ import ateam.model.Bihin;
 import ateam.util.LogUtil;
 
 public class ReturnBihinLogic {
-	synchronized public static boolean returnBihin(String userID, String bihinID) {
-		if (userID == null || userID.isEmpty() || bihinID == null || bihinID.isEmpty()) {
+	synchronized public static boolean returnBihin(String bihinID, String userID) {
+		if (bihinID == null || bihinID.isEmpty() || userID == null || userID.isEmpty()) {
 			return false;
 		}
 		BihinDAO dao = BihinDAO.getInstance();
 		Bihin bihin = dao.getBihin(bihinID);
 		if (bihin != null && bihin.getStatus() == Bihin.USED && userID.equals(bihin.getUserID())) {
-			dao.update(userID, bihinID);
-			LogUtil.createLogDate(userID, bihinID);
-			return true;
+			if (1 == dao.update(bihinID, userID)) {
+				LogUtil.createLogDate(bihinID, userID);
+				return true;
+			}
 		}
 		return false;
 	}

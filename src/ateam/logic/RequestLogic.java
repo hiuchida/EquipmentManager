@@ -14,10 +14,11 @@ public class RequestLogic {
 		BihinDAO dao = BihinDAO.getInstance();
 		Bihin bihin = dao.getBihin(bihinID);
 		if (bihin != null && bihin.getStatus() == Bihin.AVAILABLE) {
-			dao.update(bihinID, userID, returnDay);
-			LogUtil.createLogDate(userID, bihinID);
-			// ステータスが貸出可の場合にのみtrueを返す
-			return true;
+			if (1 == dao.update(bihinID, userID, returnDay)) {
+				LogUtil.createLogDate(bihinID, userID);
+				// ステータスが貸出可の場合にのみtrueを返す
+				return true;
+			}
 		}
 		return false;
 	}

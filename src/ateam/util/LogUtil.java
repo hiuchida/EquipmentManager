@@ -13,8 +13,8 @@ import ateam.model.Bihin;
 import ateam.model.User;
 
 public class LogUtil {
-	synchronized public static void createLogDate(String userID, String bihinID) {
-		if (userID == null || userID.isEmpty() || bihinID == null || bihinID.isEmpty()) {
+	synchronized public static void createLogDate(String bihinID, String userID) {
+		if (bihinID == null || bihinID.isEmpty() || userID == null || userID.isEmpty()) {
 			return;
 		}
 		try {

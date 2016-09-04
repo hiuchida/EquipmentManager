@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,21 +28,28 @@ public class DBManager {
 		}
 	}
 
-	// 更新SQLを発行(パラメータ文字列２つ)
-	public static int doUpdate(String sql, String pmt1, String pmt2) throws SQLException {
+	// 更新SQLを発行
+	public static int doUpdate(String sql, List<Object> params) throws SQLException {
 		Connection con = null;
-		PreparedStatement smt = null;
-
+		PreparedStatement stm = null;
 		try {
 			con = DBManager.getConnection();
-			smt = con.prepareStatement(sql);
-			smt.setString(1, pmt1);
-			smt.setString(2, pmt2);
-			return smt.executeUpdate();
+			stm = con.prepareStatement(sql);
+			for (int i = 0; i < params.size(); i++) {
+				Object param = params.get(i);
+				if (param instanceof String) {
+					stm.setString(i + 1, (String) param);
+				} else if (param instanceof Integer) {
+					stm.setInt(i + 1, (Integer) param);
+				} else if (param instanceof Date) {
+					stm.setDate(i + 1, (Date) param);
+				}
+			}
+			return stm.executeUpdate();
 		} finally {
-			if (smt != null) {
+			if (stm != null) {
 				try {
-					smt.close();
+					stm.close();
 				} catch (SQLException ignore) {
 				}
 			}
@@ -56,52 +62,39 @@ public class DBManager {
 		}
 	}
 
-	// 更新SQLを発行(パラメータ文字列2つデータ1つ)
-	public static int doUpdate(String sql, String pmt1, Date pmt2, String pmt3) throws SQLException {
-		Connection con = null;
-		PreparedStatement smt = null;
-
-		try {
-			con = DBManager.getConnection();
-			smt = con.prepareStatement(sql);
-			smt.setString(1, pmt1);
-			smt.setDate(2, pmt2);
-			smt.setString(3, pmt3);
-			return smt.executeUpdate();
-		} finally {
-			if (smt != null) {
-				try {
-					smt.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException ignore) {
-				}
-			}
-		}
-	}
-
-	public static <T> T getObject(String sql, String pmt, ResultSetBeanMapping<T> mapping) throws SQLException {
+	public static <T> T getObject(String sql, List<Object> params, ResultSetBeanMapping<T> mapping) throws SQLException {
 		Connection con = null;
 		ResultSet rs = null;
-		PreparedStatement smt = null;
+		PreparedStatement stm = null;
 		try {
 			con = DBManager.getConnection();
-			smt = con.prepareStatement(sql);
-			smt.setString(1, pmt);
-			rs = smt.executeQuery();
+			stm = con.prepareStatement(sql);
+			for (int i = 0; i < params.size(); i++) {
+				Object param = params.get(i);
+				if (param instanceof String) {
+					stm.setString(i + 1, (String) param);
+				} else if (param instanceof Integer) {
+					stm.setInt(i + 1, (Integer) param);
+				} else if (param instanceof Date) {
+					stm.setDate(i + 1, (Date) param);
+				}
+			}
+			rs = stm.executeQuery();
 			if (rs.next()) {
 				return (T) mapping.createFromResultSet(rs);
 			} else {
 				return null;
 			}
 		} finally {
-			if (smt != null) {
+			if (rs != null) {
 				try {
-					smt.close();
+					rs.close();
+				} catch (SQLException ignore) {
+				}
+			}
+			if (stm != null) {
+				try {
+					stm.close();
 				} catch (SQLException ignore) {
 				}
 			}
@@ -111,37 +104,43 @@ public class DBManager {
 				} catch (SQLException ignore) {
 				}
 			}
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ignore) {
-				}
-			}
 		}
 	}
 
-	// 検索SQLを発行
-	public static <T> List<T> getList(String sql, ResultSetBeanMapping<T> mapping) throws SQLException {
+	public static <T> List<T> getList(String sql, List<Object> params, ResultSetBeanMapping<T> mapping) throws SQLException {
 		Connection con = null;
-		Statement smt = null;
+		PreparedStatement stm = null;
 		ResultSet rs = null;
-
 		try {
 			con = DBManager.getConnection();
-			smt = con.createStatement();
-			rs = smt.executeQuery(sql);
-
+			stm = con.prepareStatement(sql);
+			for (int i = 0; i < params.size(); i++) {
+				Object param = params.get(i);
+				if (param instanceof String) {
+					stm.setString(i + 1, (String) param);
+				} else if (param instanceof Integer) {
+					stm.setInt(i + 1, (Integer) param);
+				} else if (param instanceof Date) {
+					stm.setDate(i + 1, (Date) param);
+				}
+			}
+			rs = stm.executeQuery();
 			List<T> list = new ArrayList<T>();
 			while (rs.next()) {
 				T bean = mapping.createFromResultSet(rs);
 				list.add(bean);
 			}
-
 			return list;
 		} finally {
-			if (smt != null) {
+			if (rs != null) {
 				try {
-					smt.close();
+					rs.close();
+				} catch (SQLException ignore) {
+				}
+			}
+			if (stm != null) {
+				try {
+					stm.close();
 				} catch (SQLException ignore) {
 				}
 			}
@@ -151,137 +150,7 @@ public class DBManager {
 				} catch (SQLException ignore) {
 				}
 			}
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ignore) {
-				}
-			}
 		}
 	}
 
-	// 検索発行（パラメータ2つ）
-	public static <T> List<T> getSearchList(String sql, String pmt1, String pmt2, ResultSetBeanMapping<T> mapping)
-			throws SQLException {
-		Connection con = null;
-		PreparedStatement smt = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBManager.getConnection();
-			smt = con.prepareStatement(sql);
-			smt.setString(1, "%" + pmt1 + "%");
-			smt.setString(2, "%" + pmt2 + "%");
-			rs = smt.executeQuery();
-
-			List<T> list = new ArrayList<T>();
-			while (rs.next()) {
-				T bean = mapping.createFromResultSet(rs);
-				list.add(bean);
-			}
-
-			return list;
-		} finally {
-			if (smt != null) {
-				try {
-					smt.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ignore) {
-				}
-			}
-		}
-	}
-
-	// 検索発行（マイページ）
-	public static <T> List<T> getList(String sql, String pmt, ResultSetBeanMapping<T> mapping) throws SQLException {
-		Connection con = null;
-		PreparedStatement smt = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBManager.getConnection();
-			smt = con.prepareStatement(sql);
-			smt.setString(1, pmt);
-			rs = smt.executeQuery();
-
-			List<T> list = new ArrayList<T>();
-			while (rs.next()) {
-				T bean = mapping.createFromResultSet(rs);
-				list.add(bean);
-			}
-
-			return list;
-		} finally {
-			if (smt != null) {
-				try {
-					smt.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ignore) {
-				}
-			}
-		}
-	}
-
-	// 検索発行（パラメータ１つ）
-	public static <T> List<T> getSearchList(String sql, int pmt, ResultSetBeanMapping<T> mapping) throws SQLException {
-		Connection con = null;
-		PreparedStatement smt = null;
-		ResultSet rs = null;
-
-		try {
-			con = DBManager.getConnection();
-			smt = con.prepareStatement(sql);
-			smt.setInt(1, pmt);
-			rs = smt.executeQuery();
-
-			List<T> list = new ArrayList<T>();
-			while (rs.next()) {
-				T bean = mapping.createFromResultSet(rs);
-				list.add(bean);
-			}
-
-			return list;
-		} finally {
-			if (smt != null) {
-				try {
-					smt.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException ignore) {
-				}
-			}
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException ignore) {
-				}
-			}
-		}
-	}
 }

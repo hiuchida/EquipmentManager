@@ -5,12 +5,12 @@ import junit.framework.TestCase;
 
 public class LogUtilTest extends TestCase {
 	public void testCreateLogDate() {
-		LogUtil.createLogDate("U001", "B001");
-		LogUtil.createLogDate("U001", "B004");
-		LogUtil.createLogDate(null, "B001");
-		LogUtil.createLogDate("", "B001");
-		LogUtil.createLogDate("U001", null);
-		LogUtil.createLogDate("U001", "");
+		LogUtil.createLogDate("B001", "U001");
+		LogUtil.createLogDate("B004", "U001");
+		LogUtil.createLogDate(null, "U001");
+		LogUtil.createLogDate("", "U001");
+		LogUtil.createLogDate("B001", null);
+		LogUtil.createLogDate("B001", "");
 	}
 
 }

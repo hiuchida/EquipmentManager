@@ -13,7 +13,7 @@ public class RequestLogicTest extends TestCase {
 	public void testRequestBihin1() {
 		assertTrue(RequestLogic.requestBihin("B001", "U001", date));
 		BihinDAO dao = BihinDAO.getInstance();
-		dao.update("U001", "B001");
+		assertEquals(1, dao.update("B001", "U001"));
 	}
 
 	public void testRequestBihin2() {
