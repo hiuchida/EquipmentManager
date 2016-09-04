@@ -45,13 +45,14 @@ public class RequestServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String bihinName = request.getParameter("bihinName");
 		String bihinID = request.getParameter("bihinID");
+		// 空文字判定
+		if (bihinName == null || bihinName.isEmpty() || bihinID == null || bihinID.isEmpty()) {
+			response.sendRedirect("BihinListServlet");
+			return;
+		}
 		request.setAttribute("bihinName", bihinName);
 		request.setAttribute("bihinID", bihinID);
-		if (bihinName != null && bihinID != null) {
-			request.getRequestDispatcher("/request.jsp").forward(request, response);
-		} else {
-			response.sendRedirect("BihinListServlet");
-		}
+		request.getRequestDispatcher("/request.jsp").forward(request, response);
 	}
 
 }

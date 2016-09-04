@@ -49,31 +49,32 @@ public class RequestChoiceServlet extends HttpServlet {
 		}
 		request.setCharacterEncoding("UTF-8");
 		User user = (User) session.getAttribute("user");
+		String userID = user.getUserID();
 		String bihinID = request.getParameter("bihinID");
 		String bihinName = request.getParameter("bihinName");
-		String userID = user.getUserID();
 		String returnDayStr = request.getParameter("returnDate");
 		// 空文字判定
-		if (returnDayStr.isEmpty()) {
+		if (bihinID == null || bihinID.isEmpty() || bihinName == null || bihinName.isEmpty() || returnDayStr == null
+				|| returnDayStr.isEmpty()) {
 			response.sendRedirect("BihinListServlet");
+			return;
+		}
+		request.setAttribute("bihinID", bihinID);
+		request.setAttribute("bihinName", bihinName);
+		request.setAttribute("returnDay", returnDayStr);
+		// 日付が正しいか判定
+		Date returnDay = null;
+		try {
+			returnDay = Date.valueOf(returnDayStr);
+		} catch (IllegalArgumentException e) {
+			request.setAttribute("errorMessage", "正しい日付を入力してください");
+			request.getRequestDispatcher("/request.jsp").forward(request, response);
+			return;
+		}
+		if (RequestLogic.requestBihin(bihinID, userID, returnDay)) {
+			request.getRequestDispatcher("/requestSuccess.jsp").forward(request, response);
 		} else {
-			// 日付が正しいか判定
-			try {
-				Date returnDay = Date.valueOf(returnDayStr);
-			} catch (IllegalArgumentException e) {
-				request.setAttribute("bihinName", bihinName);
-				request.setAttribute("bihinID", bihinID);
-				request.setAttribute("errorMessage", "正しい日付を入力してください");
-				request.getRequestDispatcher("/request.jsp").forward(request, response);
-			}
-			Date returnDay = Date.valueOf(returnDayStr);
-			request.setAttribute("returnDay", returnDayStr);
-			request.setAttribute("bihinName", bihinName);
-			if (RequestLogic.requestBihin(bihinID, userID, returnDay)) {
-				request.getRequestDispatcher("/requestSuccess.jsp").forward(request, response);
-			} else {
-				request.getRequestDispatcher("/requestFail.jsp").forward(request, response);
-			}
+			request.getRequestDispatcher("/requestFail.jsp").forward(request, response);
 		}
 	}
 }

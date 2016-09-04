@@ -51,9 +51,8 @@ public class BihinSearchServlet extends HttpServlet {
 		String bihinKana = request.getParameter("search");
 		String bihinName = bihinKana;
 		String statusName = request.getParameter("status");
-
 		int status = BihinSearchLogic.getStatusSearch(statusName);
-		if (bihinKana.isEmpty()) {
+		if (bihinKana == null || bihinKana.isEmpty()) {
 			if (status == Bihin.OTHER) {
 				list = BihinListLogic.getAllBihinList();
 			} else {
@@ -63,12 +62,10 @@ public class BihinSearchServlet extends HttpServlet {
 			/* 備品名の検索 */
 			if (status == Bihin.OTHER) {
 				list = BihinSearchLogic.getBihinSeachList(bihinKana, bihinName);
-
 			} else {
 				list = BihinSearchLogic.getBihinSearchList(bihinKana, bihinName, status);
 			}
 		}
-
 		request.setAttribute("bihinList", list);
 		request.setAttribute("bihinKana", bihinKana);
 		request.setAttribute("statusName", statusName);

@@ -44,6 +44,11 @@ public class ReturnBihinServlet extends HttpServlet {
 		}
 		User user = (User) session.getAttribute("user");
 		String bihinID = request.getParameter("bihinID");
+		// 空文字判定
+		if (bihinID == null || bihinID.isEmpty()) {
+			response.sendRedirect("MyPageServlet");
+			return;
+		}
 		if (ReturnBihinLogic.returnBihin(user.getUserID(), bihinID)) {
 			request.getRequestDispatcher("/returnSuccess.jsp").forward(request, response);
 		} else {

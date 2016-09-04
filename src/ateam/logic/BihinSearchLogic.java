@@ -29,6 +29,9 @@ public class BihinSearchLogic {
 
 	public static int getStatusSearch(String statusName) {
 		int status;
+		if (statusName == null) {
+			return Bihin.OTHER;
+		}
 		switch (statusName) {
 		case "success":
 			status = Bihin.AVAILABLE;
