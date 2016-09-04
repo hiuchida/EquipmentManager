@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ateam.logic.UserListLogic;
+import ateam.logic.UserDeleteLogic;
 import ateam.util.LoginUtil;
 
 /**
- * Servlet implementation class UserManageServlet
+ * Servlet implementation class UserDeleteServlet
  */
-@WebServlet("/UserManageServlet")
-public class UserManageServlet extends HttpServlet {
+@WebServlet("/UserDeleteServlet")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserManageServlet() {
+	public UserDeleteServlet() {
 		super();
 	}
 
@@ -35,19 +35,14 @@ public class UserManageServlet extends HttpServlet {
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");
-		String add = request.getParameter("add");
-		String delete = request.getParameter("delete");
-		if ("true".equals(add)) {
-			request.setAttribute("errorMessage", "ユーザの登録に成功しました");
-		} else if ("false".equals(add)) {
-			request.setAttribute("errorMessage", "ユーザの登録に失敗しました");
-		} else if ("true".equals(delete)) {
-			request.setAttribute("errorMessage", "ユーザの削除に成功しました");
-		} else if ("false".equals(delete)) {
-			request.setAttribute("errorMessage", "ユーザの削除に失敗しました");
+		String userID = request.getParameter("userID");
+		// 空文字判定
+		if (userID == null || userID.isEmpty()) {
+			response.sendRedirect("UserManageServlet?delete=false");
+			return;
 		}
-		request.setAttribute("userList", UserListLogic.getAllUserList());
-		request.getRequestDispatcher("/admin/userList.jsp").forward(request, response);
+		boolean rc = UserDeleteLogic.deleteUser(userID);
+		response.sendRedirect("UserManageServlet?delete=" + rc);
 	}
 
 	/**

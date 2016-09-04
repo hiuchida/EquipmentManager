@@ -38,4 +38,31 @@ public class UserDAO {
 		}
 	}
 
+	public int insert(User user) {
+		String sql = "INSERT UserKanri(userID, password, userName, userKana, deptID, authority) VALUES(?,?,?,?,?,?)";
+		List<Object> params = new ArrayList<Object>();
+		params.add(user.getUserID());
+		params.add(user.getPassword());
+		params.add(user.getUserName());
+		params.add(user.getUserKana());
+		params.add(user.getDeptID());
+		params.add(user.getAuthority());
+		try {
+			return DBManager.doUpdate(sql, params);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public int delete(String userID) {
+		String sql = "DELETE FROM UserKanri WHERE userID = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(userID);
+		try {
+			return DBManager.doUpdate(sql, params);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 }
