@@ -29,6 +29,7 @@
 			<thead>
 				<tr>
 					<th>ユーザID</th>
+					<th>パスワード</th>
 					<th>氏名</th>
 					<th>氏名（フリガナ）</th>
 					<th>部署ID</th>
@@ -38,11 +39,31 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<form method="POST" action="UserAddServlet" accept-charset="UTF-8">
+					<td><input type="text" name="userID"></td>
+					<td><input type="password" name="password"></td>
+					<td><input type="text" name="userName"></td>
+					<td><input type="text" name="userKana"></td>
+					<td><input type="text" name="deptID"></td>
+					<td>---</td>
+					<td><select name="authority">
+					<option value="1">一般</option>
+					<option value="2">管理者</option>
+					</select>
+					</td>
+					<td>
+							<button type="submit" class="pure-button"
+							style="border:2px solid #0000FF;">登録</button>
+					</td>
+					</form>
+				</tr>
 				<%
 			    for (User user : list) {
-			%>
+				%>
 				<tr>
 					<td><%=user.getUserID()%></td>
+					<td>---</td>
 					<td><%=user.getUserName()%></td>
 					<td><%=user.getUserKana()%></td>
 					<td><%=user.getDeptID()%></td>
@@ -56,18 +77,11 @@
 					</td>
 
 					<td>
-						<%-- 申請ボタン
-						<form method="POST" action="RequestServlet" accept-charset="UTF-8">
-							<input type="hidden" name="bihinName"
-								value="<%=bihin.getBihinName()%>"> <input type="hidden"
-								name="bihinID" value="<%=bihin.getBihinID()%>">
+						<form method="POST" action="UserDeleteServlet" accept-charset="UTF-8">
+							<input type="hidden" name="userID" value="<%=user.getUserID()%>">
 							<button type="submit" class="pure-button"
-							<%if (bihin.getStatus() == Bihin.AVAILABLE) {%>
-							style="border:2px solid #0000FF;"
-							<% } %>
-								<%if (bihin.getStatus() != Bihin.AVAILABLE) {%> disabled <%}%>>申請</button>
+							style="border:2px solid #FF0000;">削除</button>
 						</form>
-						--%>
 					</td>
 				</tr>
 				<%
