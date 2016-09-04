@@ -22,9 +22,11 @@
 		<li class="pure-menu-item"><a href="BihinListServlet"
 			class="pure-menu-link">備品一覧</a></li>
 		<% if (UserUtil.isAdministrator(loginUser)) { %>
-		<li class="pure-menu-item"><a href="#"
+		<li class="pure-menu-item"><a href="UserManageServlet"
 			class="pure-menu-link">ユーザ管理</a></li>
-		<li class="pure-menu-item"><a href="#"
+		<li class="pure-menu-item"><a href="DepartmentManageServlet"
+			class="pure-menu-link">部署管理</a></li>
+		<li class="pure-menu-item"><a href="BihinManageServlet"
 			class="pure-menu-link">備品管理</a></li>
 		<% } %>
 		<li class="pure-menu-item"><a href="LogoutServlet"

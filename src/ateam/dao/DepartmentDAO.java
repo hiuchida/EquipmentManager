@@ -27,4 +27,15 @@ public class DepartmentDAO {
 			throw new IllegalStateException(e);
 		}
 	}
+
+	public List<Department> getDepartmentList() {
+		String sql = "SELECT * FROM DepartmentKanri ORDER BY deptID ASC";
+		List<Object> params = new ArrayList<Object>();
+		try {
+			return DBManager.getList(sql, params, mapping);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 }

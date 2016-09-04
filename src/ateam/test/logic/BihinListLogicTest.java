@@ -14,4 +14,5 @@ public class BihinListLogicTest extends TestCase {
 		assertEquals("B002", list.get(1).getBihinID());
 		assertEquals("B003", list.get(2).getBihinID());
 	}
+
 }

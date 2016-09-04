@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="ateam.model.Bihin"%>
-<%@ page import="java.util.List"%>
-<%@ page import="ateam.util.BihinUtil"%>
-<%@ page import="ateam.util.UserUtil"%>
-<%@ page import="java.sql.Date"%>
+<%@ page import="java.util.*, java.sql.*, ateam.model.*, ateam.util.*"%>
 <%
     List<Bihin> list = (List<Bihin>) request.getAttribute("bihinList");
 %>
@@ -18,7 +14,6 @@
 <link rel="stylesheet" type="text/css" href="CSS/style.css">
 <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="js/jquery.floatThead.min.js"></script>
-
 </head>
 <body>
 	<%@ include file="menu.jsp"%>

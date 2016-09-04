@@ -27,4 +27,15 @@ public class UserDAO {
 			throw new IllegalStateException(e);
 		}
 	}
+
+	public List<User> getUserList() {
+		String sql = "SELECT * FROM UserKanri ORDER BY userID ASC";
+		List<Object> params = new ArrayList<Object>();
+		try {
+			return DBManager.getList(sql, params, mapping);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 }

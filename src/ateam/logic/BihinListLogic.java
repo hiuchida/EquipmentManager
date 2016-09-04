@@ -11,4 +11,5 @@ public class BihinListLogic {
 		List<Bihin> list = dao.getBihinList();
 		return list;
 	}
+
 }
