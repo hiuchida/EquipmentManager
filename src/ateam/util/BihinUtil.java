@@ -42,16 +42,13 @@ public class BihinUtil {
 	public static boolean isOverdue(Bihin bihin) {
 		Date today = new Date(System.currentTimeMillis());
 		Date returnDay = bihin.getReturnDay();
-
 		if (returnDay == null) {
 			return false;
 		}
-
 		Calendar todayCal = Calendar.getInstance();
 		todayCal.setTime(today);
 		Calendar returnDayCal = Calendar.getInstance();
 		returnDayCal.setTime(returnDay);
-
 		todayCal.set(Calendar.MILLISECOND, 0);
 		todayCal.set(Calendar.SECOND, 0);
 		todayCal.set(Calendar.MINUTE, 0);

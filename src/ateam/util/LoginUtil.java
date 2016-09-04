@@ -10,6 +10,9 @@ import javax.servlet.http.HttpSession;
 public class LoginUtil {
 	public static boolean isLogined(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (request == null || response == null) {
+			return false;
+		}
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
 			return true;

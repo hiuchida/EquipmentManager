@@ -14,6 +14,9 @@ import ateam.model.User;
 
 public class LogUtil {
 	synchronized public static void createLogDate(String userID, String bihinID) {
+		if (userID == null || userID.isEmpty() || bihinID == null || bihinID.isEmpty()) {
+			return;
+		}
 		try {
 			String basePath = AppConfig.getInstance().getBasePath();
 			File file = new File(basePath + "/WEB-INF/log/log.txt");

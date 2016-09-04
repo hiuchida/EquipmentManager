@@ -6,6 +6,9 @@ import ateam.model.User;
 public class UserUtil {
 	// nullのときは---を返す
 	public static String getUserName(String userID) {
+		if (userID == null || userID.isEmpty()) {
+			return "---";
+		}
 		UserDAO dao = UserDAO.getInstance();
 		User user = dao.getUser(userID);
 		if (user != null) {

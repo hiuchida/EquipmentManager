@@ -2,6 +2,9 @@ package ateam.util;
 
 public class StringUtil {
 	public static String convertHiraganaToKatakana(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
 		StringBuffer buf = new StringBuffer();
 		for (int i = 0; i < str.length(); i++) {
 			char code = str.charAt(i);
