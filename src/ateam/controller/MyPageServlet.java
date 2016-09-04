@@ -43,7 +43,7 @@ public class MyPageServlet extends HttpServlet {
 		// 備品モデルのリストにロジックで作成したリストを代入していく。
 		List<Bihin> list = MyPageLogic.getBihinList(user.getUserID());
 		// リストをjspに渡す
-		request.setAttribute("list", list);
+		request.setAttribute("bihinList", list);
 		request.getRequestDispatcher("/myPage.jsp").forward(request, response);
 	}
 

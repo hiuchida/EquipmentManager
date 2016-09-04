@@ -6,7 +6,7 @@
 	import="java.io.*,java.util.*,java.text.*, ateam.model.Bihin, ateam.model.User,ateam.model.Department"%>
 <%@ page import="ateam.util.DepartmentUtil"%>
 <%
-    List<Bihin> list = (List<Bihin>) request.getAttribute("list");
+    List<Bihin> list = (List<Bihin>) request.getAttribute("bihinList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
