@@ -25,12 +25,10 @@ public class ReturnBihinServlet extends HttpServlet {
 	 */
 	public ReturnBihinServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -41,17 +39,15 @@ public class ReturnBihinServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (!LoginUtil.isLogined(session)) {
-			request.setAttribute("errorMessage", "ログインしてください");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		if (!LoginUtil.isLogined(request, response)) {
+			return;
+		}
+		User user = (User) session.getAttribute("user");
+		String bihinID = request.getParameter("bihinID");
+		if (ReturnBihinLogic.returnBihin(user.getUserID(), bihinID)) {
+			request.getRequestDispatcher("/returnSuccess.jsp").forward(request, response);
 		} else {
-			User user = (User) session.getAttribute("user");
-			String bihinID = request.getParameter("bihinID");
-			if (ReturnBihinLogic.returnBihin(user.getUserID(), bihinID)) {
-				request.getRequestDispatcher("/returnSuccess.jsp").forward(request, response);
-			} else {
-				request.getRequestDispatcher("/returnFail.jsp").forward(request, response);
-			}
+			request.getRequestDispatcher("/returnFail.jsp").forward(request, response);
 		}
 	}
 

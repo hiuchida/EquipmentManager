@@ -27,7 +27,6 @@ public class BihinSearchServlet extends HttpServlet {
 	 */
 	public BihinSearchServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,7 +35,6 @@ public class BihinSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -46,43 +44,36 @@ public class BihinSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if (!LoginUtil.isLogined(session)) {
-			request.setAttribute("errorMessage", "ログインしてください");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
-		} else {
-			request.setCharacterEncoding("UTF-8");
-			List<Bihin> list = null;
-			String bihinKana = request.getParameter("search");
-			String bihinName = bihinKana;
-			String statusName = request.getParameter("status");
-
-			int status = BihinSearchLogic.getStatusSearch(statusName);
-
-			if (bihinKana.isEmpty()) {
-				/* ステータスの更新 */
-				// System.out.println("ステータス:" + status + "カナ:" + bihinKana);
-
-				if (status == Bihin.OTHER) {
-					list = BihinListLogic.getAllBihinList();
-				} else {
-					list = BihinSearchLogic.getBihinSearchList(status);
-				}
-			} else {
-				/* 備品名の検索 */
-				if (status == Bihin.OTHER) {
-					list = BihinSearchLogic.getBihinSeachList(bihinKana, bihinName);
-
-				} else {
-					list = BihinSearchLogic.getBihinSearchList(bihinKana, bihinName, status);
-				}
-			}
-
-			request.setAttribute("bihinList", list);
-			request.setAttribute("bihinKana", bihinKana);
-			request.setAttribute("statusName", statusName);
-			request.getRequestDispatcher("/bihinList.jsp").forward(request, response);
+		if (!LoginUtil.isLogined(request, response)) {
+			return;
 		}
+		request.setCharacterEncoding("UTF-8");
+		List<Bihin> list = null;
+		String bihinKana = request.getParameter("search");
+		String bihinName = bihinKana;
+		String statusName = request.getParameter("status");
+
+		int status = BihinSearchLogic.getStatusSearch(statusName);
+		if (bihinKana.isEmpty()) {
+			if (status == Bihin.OTHER) {
+				list = BihinListLogic.getAllBihinList();
+			} else {
+				list = BihinSearchLogic.getBihinSearchList(status);
+			}
+		} else {
+			/* 備品名の検索 */
+			if (status == Bihin.OTHER) {
+				list = BihinSearchLogic.getBihinSeachList(bihinKana, bihinName);
+
+			} else {
+				list = BihinSearchLogic.getBihinSearchList(bihinKana, bihinName, status);
+			}
+		}
+
+		request.setAttribute("bihinList", list);
+		request.setAttribute("bihinKana", bihinKana);
+		request.setAttribute("statusName", statusName);
+		request.getRequestDispatcher("/bihinList.jsp").forward(request, response);
 	}
 
 }

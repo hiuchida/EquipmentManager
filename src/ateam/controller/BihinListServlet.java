@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import ateam.logic.BihinListLogic;
 import ateam.util.LoginUtil;
@@ -24,7 +23,6 @@ public class BihinListServlet extends HttpServlet {
 	 */
 	public BihinListServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -33,16 +31,12 @@ public class BihinListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-		if (!LoginUtil.isLogined(session)) {
-			request.setAttribute("errorMessage", "ログインしてください");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
-		} else {
-			request.setCharacterEncoding("UTF-8");
-			request.setAttribute("bihinList", BihinListLogic.getAllBihinList());
-			request.getRequestDispatcher("/bihinList.jsp").forward(request, response);
+		if (!LoginUtil.isLogined(request, response)) {
+			return;
 		}
+		request.setCharacterEncoding("UTF-8");
+		request.setAttribute("bihinList", BihinListLogic.getAllBihinList());
+		request.getRequestDispatcher("/bihinList.jsp").forward(request, response);
 	}
 
 	/**
@@ -51,7 +45,6 @@ public class BihinListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

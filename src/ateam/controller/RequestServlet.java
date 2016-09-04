@@ -23,7 +23,6 @@ public class RequestServlet extends HttpServlet {
 	 */
 	public RequestServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -32,9 +31,7 @@ public class RequestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
-
 	}
 
 	/**
@@ -43,21 +40,18 @@ public class RequestServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if (!LoginUtil.isLogined(session)) {
-			request.setAttribute("errorMessage", "ログインしてください");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		if (!LoginUtil.isLogined(request, response)) {
+			return;
+		}
+		request.setCharacterEncoding("UTF-8");
+		String bihinName = request.getParameter("bihinName");
+		String bihinID = request.getParameter("bihinID");
+		request.setAttribute("bihinName", bihinName);
+		request.setAttribute("bihinID", bihinID);
+		if (bihinName != null) {
+			request.getRequestDispatcher("/request.jsp").forward(request, response);
 		} else {
-			request.setCharacterEncoding("UTF-8");
-			String bihinName = request.getParameter("bihinName");
-			String bihinID = request.getParameter("bihinID");
-			request.setAttribute("bihinName", bihinName);
-			request.setAttribute("bihinID", bihinID);
-			if (bihinName != null) {
-				request.getRequestDispatcher("/request.jsp").forward(request, response);
-			} else {
-				request.getRequestDispatcher("/MyPageServlet").forward(request, response);
-			}
+			request.getRequestDispatcher("/MyPageServlet").forward(request, response);
 		}
 	}
 

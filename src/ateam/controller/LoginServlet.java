@@ -24,7 +24,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -33,7 +32,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
@@ -43,13 +41,11 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String userID = request.getParameter("userID");
 		String password = request.getParameter("password");
 
 		User user = LoginLogic.login(userID, password);
-
 		if (user != null) {
 			HttpSession session = request.getSession(true);
 			// パスワードを削除
@@ -57,7 +53,6 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("user", user);
 			request.getRequestDispatcher("/MyPageServlet").forward(request, response);
 		} else {
-
 			String errorMessage = "ログインに失敗しました。";
 			request.setAttribute("errorMessage", errorMessage);
 			request.getRequestDispatcher("/login.jsp").forward(request, response);

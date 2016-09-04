@@ -1,14 +1,22 @@
 package ateam.util;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginUtil {
-	public static boolean isLogined(HttpSession session) {
-		return session != null && session.getAttribute("user") != null;
-	}
-
-	public static boolean searchUser(HttpSession session) {
-		return session.getAttribute("user") != null;
+	public static boolean isLogined(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			return true;
+		}
+		request.setAttribute("errorMessage", "ログインしてください");
+		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		return false;
 	}
 
 }
