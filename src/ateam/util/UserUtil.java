@@ -17,4 +17,12 @@ public class UserUtil {
 			return "---";
 		}
 	}
+
+	public static boolean isAdministrator(User user) {
+		if (user == null) {
+			return false;
+		}
+		return user.getAuthority() == User.ADMINISTRATOR;
+	}
+
 }

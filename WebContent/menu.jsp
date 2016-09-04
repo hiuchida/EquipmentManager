@@ -1,4 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ page import="ateam.model.*, ateam.util.*"%>
+<%
+    User loginUser = (User) session.getAttribute("user");
+%>
 <div class="pure-menu pure-menu-horizontal">
 	<style scoped>
 .pure-menu-item {
@@ -17,6 +21,12 @@
 			class="pure-menu-link">マイページ</a></li>
 		<li class="pure-menu-item"><a href="BihinListServlet"
 			class="pure-menu-link">備品一覧</a></li>
+		<% if (UserUtil.isAdministrator(loginUser)) { %>
+		<li class="pure-menu-item"><a href="#"
+			class="pure-menu-link">ユーザ管理</a></li>
+		<li class="pure-menu-item"><a href="#"
+			class="pure-menu-link">備品管理</a></li>
+		<% } %>
 		<li class="pure-menu-item"><a href="LogoutServlet"
 			onclick="return clickChk()" class="pure-menu-link"> <script>
 			/**
