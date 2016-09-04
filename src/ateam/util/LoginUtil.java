@@ -14,8 +14,7 @@ public class LoginUtil {
 		if (session != null && session.getAttribute("user") != null) {
 			return true;
 		}
-		request.setAttribute("errorMessage", "ログインしてください");
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		response.sendRedirect("LoginServlet?timeout=true");
 		return false;
 	}
 

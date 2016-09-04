@@ -32,6 +32,11 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String timeout = request.getParameter("timeout");
+		if (timeout != null) {
+			request.setAttribute("errorMessage", "ログインしてください");
+		}
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
@@ -44,14 +49,13 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String userID = request.getParameter("userID");
 		String password = request.getParameter("password");
-
 		User user = LoginLogic.login(userID, password);
 		if (user != null) {
 			HttpSession session = request.getSession(true);
 			// パスワードを削除
 			user.setPassword("");
 			session.setAttribute("user", user);
-			request.getRequestDispatcher("/MyPageServlet").forward(request, response);
+			response.sendRedirect("MyPageServlet");
 		} else {
 			String errorMessage = "ログインに失敗しました。";
 			request.setAttribute("errorMessage", errorMessage);

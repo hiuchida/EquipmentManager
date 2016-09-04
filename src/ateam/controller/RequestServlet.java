@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import ateam.util.LoginUtil;
 
@@ -48,10 +47,10 @@ public class RequestServlet extends HttpServlet {
 		String bihinID = request.getParameter("bihinID");
 		request.setAttribute("bihinName", bihinName);
 		request.setAttribute("bihinID", bihinID);
-		if (bihinName != null) {
+		if (bihinName != null && bihinID != null) {
 			request.getRequestDispatcher("/request.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/MyPageServlet").forward(request, response);
+			response.sendRedirect("BihinListServlet");
 		}
 	}
 
