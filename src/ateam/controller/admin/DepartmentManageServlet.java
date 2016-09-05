@@ -35,6 +35,17 @@ public class DepartmentManageServlet extends HttpServlet {
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");
+		String add = request.getParameter("add");
+		String delete = request.getParameter("delete");
+		if ("true".equals(add)) {
+			request.setAttribute("errorMessage", "部署の登録に成功しました");
+		} else if ("false".equals(add)) {
+			request.setAttribute("errorMessage", "部署の登録に失敗しました");
+		} else if ("true".equals(delete)) {
+			request.setAttribute("errorMessage", "部署の削除に成功しました");
+		} else if ("false".equals(delete)) {
+			request.setAttribute("errorMessage", "部署の削除に失敗しました");
+		}
 		request.setAttribute("deptList", DepartmentListLogic.getAllDepartmentList());
 		request.getRequestDispatcher("/admin/deptList.jsp").forward(request, response);
 	}

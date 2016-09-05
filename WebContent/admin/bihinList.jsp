@@ -3,6 +3,7 @@
 <%@ page import="java.util.*, java.sql.*, ateam.model.*, ateam.util.*"%>
 <%
     List<Bihin> list = (List<Bihin>) request.getAttribute("bihinList");
+	String errorMessage = (String) request.getAttribute("errorMessage");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,6 +20,13 @@
 	<%@ include file="../menu.jsp"%>
 
 	<h2>備品管理</h2>
+
+	<% if(errorMessage != null){ %>
+	<font color="red">
+		<% out.println(errorMessage);%>
+	</font>
+	<% }%>
+	<br>
 
 	<div class="margin">
 
@@ -39,9 +47,24 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<form method="POST" action="BihinAddServlet" accept-charset="UTF-8">
+					<td><input type="text" name="bihinID"></td>
+					<td><input type="text" name="bihinName"></td>
+					<td><input type="text" name="bihinKana"></td>
+					<td>利用可能</td>
+					<td>---</td>
+					<td>---</td>
+					<td>---</td>
+					<td>
+							<button type="submit" class="pure-button"
+							style="border:2px solid #0000FF;">登録</button>
+					</td>
+					</form>
+				</tr>
 				<%
 			    for (Bihin bihin : list) {
-			%>
+				%>
 				<tr>
 					<td><%=bihin.getBihinID()%></td>
 					<td><%=bihin.getBihinName()%></td>
@@ -72,18 +95,14 @@
 					%>
 					</td>
 					<td>
-						<%-- 申請ボタン
-						<form method="POST" action="RequestServlet" accept-charset="UTF-8">
-							<input type="hidden" name="bihinName"
-								value="<%=bihin.getBihinName()%>"> <input type="hidden"
-								name="bihinID" value="<%=bihin.getBihinID()%>">
+						<form method="POST" action="BihinDeleteServlet" accept-charset="UTF-8">
+							<input type="hidden" name="bihinID" value="<%=bihin.getBihinID()%>">
 							<button type="submit" class="pure-button"
 							<%if (bihin.getStatus() == Bihin.AVAILABLE) {%>
-							style="border:2px solid #0000FF;"
+							style="border:2px solid #FF0000;"
 							<% } %>
-								<%if (bihin.getStatus() != Bihin.AVAILABLE) {%> disabled <%}%>>申請</button>
+							<%if (bihin.getStatus() != Bihin.AVAILABLE) {%> disabled <%}%>>削除</button>
 						</form>
-						--%>
 					</td>
 				</tr>
 				<%

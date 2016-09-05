@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ateam.logic.BihinListLogic;
+import ateam.logic.DepartmentDeleteLogic;
 import ateam.util.LoginUtil;
 
 /**
- * Servlet implementation class BihinManageServlet
+ * Servlet implementation class DepartmentDeleteServlet
  */
-@WebServlet("/BihinManageServlet")
-public class BihinManageServlet extends HttpServlet {
+@WebServlet("/DepartmentDeleteServlet")
+public class DepartmentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BihinManageServlet() {
+	public DepartmentDeleteServlet() {
 		super();
 	}
 
@@ -35,19 +35,14 @@ public class BihinManageServlet extends HttpServlet {
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");
-		String add = request.getParameter("add");
-		String delete = request.getParameter("delete");
-		if ("true".equals(add)) {
-			request.setAttribute("errorMessage", "備品の登録に成功しました");
-		} else if ("false".equals(add)) {
-			request.setAttribute("errorMessage", "備品の登録に失敗しました");
-		} else if ("true".equals(delete)) {
-			request.setAttribute("errorMessage", "備品の削除に成功しました");
-		} else if ("false".equals(delete)) {
-			request.setAttribute("errorMessage", "備品の削除に失敗しました");
+		String deptID = request.getParameter("deptID");
+		// 空文字判定
+		if (deptID == null || deptID.isEmpty()) {
+			response.sendRedirect("DepartmentManageServlet?delete=false");
+			return;
 		}
-		request.setAttribute("bihinList", BihinListLogic.getAllBihinList());
-		request.getRequestDispatcher("/admin/bihinList.jsp").forward(request, response);
+		boolean rc = DepartmentDeleteLogic.deleteDepartment(deptID);
+		response.sendRedirect("DepartmentManageServlet?delete=" + rc);
 	}
 
 	/**

@@ -121,4 +121,29 @@ public class BihinDAO {
 		}
 	}
 
+	public int insert(Bihin bihin) {
+		String sql = "INSERT BihinKanri(bihinID, bihinName, bihinKana, status) VALUES(?,?,?,?)";
+		List<Object> params = new ArrayList<Object>();
+		params.add(bihin.getBihinID());
+		params.add(bihin.getBihinName());
+		params.add(bihin.getBihinKana());
+		params.add(bihin.getStatus());
+		try {
+			return DBManager.doUpdate(sql, params);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public int delete(String bihinID) {
+		String sql = "DELETE FROM BihinKanri WHERE bihinID = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(bihinID);
+		try {
+			return DBManager.doUpdate(sql, params);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 }
