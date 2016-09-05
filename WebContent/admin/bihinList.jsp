@@ -95,14 +95,19 @@
 					%>
 					</td>
 					<td>
+						<%if (bihin.getStatus() == Bihin.AVAILABLE) {%>
 						<form method="POST" action="BihinDeleteServlet" accept-charset="UTF-8">
 							<input type="hidden" name="bihinID" value="<%=bihin.getBihinID()%>">
 							<button type="submit" class="pure-button"
-							<%if (bihin.getStatus() == Bihin.AVAILABLE) {%>
-							style="border:2px solid #FF0000;"
-							<% } %>
-							<%if (bihin.getStatus() != Bihin.AVAILABLE) {%> disabled <%}%>>削除</button>
+							style="border:2px solid #FF0000;">削除</button>
 						</form>
+						<%} else if (bihin.getStatus() == Bihin.USED) {%>
+						<form method="POST" action="BihinReturnServlet" accept-charset="UTF-8">
+							<input type="hidden" name="bihinID" value="<%=bihin.getBihinID()%>">
+							<button type="submit" class="pure-button"
+							style="border:2px solid #00FF00;">返却</button>
+						</form>
+						<%}%>
 					</td>
 				</tr>
 				<%

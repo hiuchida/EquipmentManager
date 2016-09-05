@@ -37,6 +37,7 @@ public class BihinManageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String add = request.getParameter("add");
 		String delete = request.getParameter("delete");
+		String returnStr = request.getParameter("return");
 		if ("true".equals(add)) {
 			request.setAttribute("errorMessage", "備品の登録に成功しました");
 		} else if ("false".equals(add)) {
@@ -45,6 +46,10 @@ public class BihinManageServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "備品の削除に成功しました");
 		} else if ("false".equals(delete)) {
 			request.setAttribute("errorMessage", "備品の削除に失敗しました");
+		} else if ("true".equals(returnStr)) {
+			request.setAttribute("errorMessage", "備品の返却に成功しました");
+		} else if ("false".equals(returnStr)) {
+			request.setAttribute("errorMessage", "備品の返却に失敗しました");
 		}
 		request.setAttribute("bihinList", BihinListLogic.getAllBihinList());
 		request.getRequestDispatcher("/admin/bihinList.jsp").forward(request, response);

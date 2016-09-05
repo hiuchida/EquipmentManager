@@ -29,4 +29,22 @@ public class ReturnBihinLogicTest extends TestCase {
 		assertFalse(ReturnBihinLogic.returnBihin("Z", "U001"));
 	}
 
+	public void testReturnBihinByAdmin1() {
+		BihinDAO dao = BihinDAO.getInstance();
+		assertEquals(1, dao.update("B002", "U002", date));
+		assertTrue(ReturnBihinLogic.returnBihinByAdmin("B002", "U004"));
+	}
+
+	public void testReturnBihinByAdmin2() {
+		assertFalse(ReturnBihinLogic.returnBihinByAdmin("B005", "U001"));
+	}
+
+	public void testReturnBihinByAdmin3() {
+		assertFalse(ReturnBihinLogic.returnBihinByAdmin(null, "U001"));
+		assertFalse(ReturnBihinLogic.returnBihinByAdmin("", "U001"));
+		assertFalse(ReturnBihinLogic.returnBihinByAdmin("B001", null));
+		assertFalse(ReturnBihinLogic.returnBihinByAdmin("B001", ""));
+		assertFalse(ReturnBihinLogic.returnBihinByAdmin("Z", "U001"));
+	}
+
 }
