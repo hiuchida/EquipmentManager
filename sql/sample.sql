@@ -45,7 +45,7 @@ insert into departmentKanri values('D004','人事部','ジンジブ');
 insert into departmentKanri values('D005','企画部','キカクブ');
 
 create table userKanri (
-    userID varchar(20) not null default '0' primary key,
+    userID varchar(20) not null primary key,
     password varchar(50) not null,
     userName varchar(50) not null,
     userKana varchar(100) not null,
@@ -53,8 +53,11 @@ create table userKanri (
     authority int not null
 );
 
-insert into userKanri values('U001','A0000001','田中','タナカ','D001',1),
-('U002','A0000002','鈴木','スズキ','D001',1), ('U003','A0000003','John','ジョン','D002',1),
-('U004','A0000004','木村','キムラ','D003',2), ('U005','A0000005','佐藤','サトウ','D003',1),
-('U006','A0000006','山田','ヤマダ','D004',1),('U007','A0000007','渡辺','ワタナベ','D004',1),
-('U008','A0000008','伊藤','イトウ','D005',1);
+insert into userKanri values('U001','A0000001','田中','タナカ','D001',1);
+insert into userKanri values('U002','A0000002','鈴木','スズキ','D001',1);
+insert into userKanri values('U003','A0000003','John','ジョン','D002',1);
+insert into userKanri values('U004','A0000004','木村','キムラ','D003',2);
+insert into userKanri values('U005','A0000005','佐藤','サトウ','D003',1);
+insert into userKanri values('U006','A0000006','山田','ヤマダ','D004',1);
+insert into userKanri values('U007','A0000007','渡辺','ワタナベ','D004',1);
+insert into userKanri values('U008','A0000008','伊藤','イトウ','D005',1);
