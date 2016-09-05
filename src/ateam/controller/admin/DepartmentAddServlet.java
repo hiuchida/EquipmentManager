@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ateam.logic.DepartmentListLogic;
+import ateam.logic.DepartmentAddLogic;
+import ateam.model.Department;
 import ateam.util.LoginUtil;
 
 /**
- * Servlet implementation class DepartmentManageServlet
+ * Servlet implementation class DepartmentAddServlet
  */
-@WebServlet("/DepartmentManageServlet")
-public class DepartmentManageServlet extends HttpServlet {
+@WebServlet("/DepartmentAddServlet")
+public class DepartmentAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DepartmentManageServlet() {
+	public DepartmentAddServlet() {
 		super();
 	}
 
@@ -35,19 +36,21 @@ public class DepartmentManageServlet extends HttpServlet {
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");
-		String add = request.getParameter("add");
-		String delete = request.getParameter("delete");
-		if ("true".equals(add)) {
-			request.setAttribute("errorMessage", "部署の登録に成功しました");
-		} else if ("false".equals(add)) {
-			request.setAttribute("errorMessage", "部署の登録に失敗しました");
-		} else if ("true".equals(delete)) {
-			request.setAttribute("errorMessage", "部署の削除に成功しました");
-		} else if ("false".equals(delete)) {
-			request.setAttribute("errorMessage", "部署の削除に失敗しました");
+		String deptID = request.getParameter("deptID");
+		String deptName = request.getParameter("deptName");
+		String deptKana = request.getParameter("deptKana");
+		// 空文字判定
+		if (deptID == null || deptID.isEmpty() || deptName == null || deptName.isEmpty() || deptKana == null
+				|| deptKana.isEmpty()) {
+			response.sendRedirect("DepartmentManageServlet?add=false");
+			return;
 		}
-		request.setAttribute("deptList", DepartmentListLogic.getAllDepartmentList());
-		request.getRequestDispatcher("/admin/deptList.jsp").forward(request, response);
+		Department dept = new Department();
+		dept.setDeptID(deptID);
+		dept.setDeptName(deptName);
+		dept.setDeptKana(deptKana);
+		boolean rc = DepartmentAddLogic.addDepartment(dept);
+		response.sendRedirect("DepartmentManageServlet?add=" + rc);
 	}
 
 	/**

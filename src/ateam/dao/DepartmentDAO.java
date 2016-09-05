@@ -38,4 +38,28 @@ public class DepartmentDAO {
 		}
 	}
 
+	public int insert(Department dept) {
+		String sql = "INSERT DepartmentKanri(deptID, deptName, deptKana) VALUES(?,?,?)";
+		List<Object> params = new ArrayList<Object>();
+		params.add(dept.getDeptID());
+		params.add(dept.getDeptName());
+		params.add(dept.getDeptKana());
+		try {
+			return DBManager.doUpdate(sql, params);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public int delete(String deptID) {
+		String sql = "DELETE FROM DepartmentKanri WHERE deptID = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(deptID);
+		try {
+			return DBManager.doUpdate(sql, params);
+		} catch (SQLException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 }

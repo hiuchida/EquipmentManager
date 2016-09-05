@@ -3,6 +3,7 @@
 <%@ page import="java.util.*, ateam.model.*, ateam.util.*"%>
 <%
     List<Department> list = (List<Department>) request.getAttribute("deptList");
+	String errorMessage = (String) request.getAttribute("errorMessage");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,6 +21,13 @@
 
 	<h2>部署管理</h2>
 
+	<% if(errorMessage != null){ %>
+	<font color="red">
+		<% out.println(errorMessage);%>
+	</font>
+	<% }%>
+	<br>
+
 	<div class="margin">
 
 	<table class="pure-table pure-table-striped deptList">
@@ -35,6 +43,17 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<form method="POST" action="DepartmentAddServlet" accept-charset="UTF-8">
+					<td><input type="text" name="deptID"></td>
+					<td><input type="text" name="deptName"></td>
+					<td><input type="text" name="deptKana"></td>
+					<td>
+							<button type="submit" class="pure-button"
+							style="border:2px solid #0000FF;">登録</button>
+					</td>
+					</form>
+				</tr>
 				<%
 			    for (Department dept : list) {
 			%>
@@ -44,18 +63,11 @@
 					<td><%=dept.getDeptKana()%></td>
 
 					<td>
-						<%-- 申請ボタン
-						<form method="POST" action="RequestServlet" accept-charset="UTF-8">
-							<input type="hidden" name="bihinName"
-								value="<%=bihin.getBihinName()%>"> <input type="hidden"
-								name="bihinID" value="<%=bihin.getBihinID()%>">
+						<form method="POST" action="DepartmentDeleteServlet" accept-charset="UTF-8">
+							<input type="hidden" name="deptID" value="<%=dept.getDeptID()%>">
 							<button type="submit" class="pure-button"
-							<%if (bihin.getStatus() == Bihin.AVAILABLE) {%>
-							style="border:2px solid #0000FF;"
-							<% } %>
-								<%if (bihin.getStatus() != Bihin.AVAILABLE) {%> disabled <%}%>>申請</button>
+							style="border:2px solid #FF0000;">削除</button>
 						</form>
-						--%>
 					</td>
 				</tr>
 				<%
