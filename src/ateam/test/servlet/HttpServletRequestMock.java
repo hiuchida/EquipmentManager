@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -28,6 +29,18 @@ import ateam.model.User;
 public class HttpServletRequestMock implements HttpServletRequest {
 
 	private HttpSessionMock session;
+	private String characterEncoding;
+	private Map<String, Object> attrs = new HashMap<String, Object>();
+	private String requestDispatcherPath;
+	private Map<String, String> params = new HashMap<String, String>();
+
+	public String getRequestDispatcherPath() {
+		return requestDispatcherPath;
+	}
+
+	public void setParameter(String key, String value) {
+		params.put(key, value);
+	}
 
 	public HttpServletRequestMock(boolean bSession, User user) {
 		if (bSession) {
@@ -43,8 +56,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public Object getAttribute(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return attrs.get(arg0);
 	}
 
 	@Override
@@ -55,8 +67,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public String getCharacterEncoding() {
-		// TODO Auto-generated method stub
-		return null;
+		return characterEncoding;
 	}
 
 	@Override
@@ -115,8 +126,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public String getParameter(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return params.get(arg0);
 	}
 
 	@Override
@@ -175,6 +185,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public RequestDispatcher getRequestDispatcher(String arg0) {
+		this.requestDispatcherPath = arg0;
 		return new RequestDispatcherMock();
 	}
 
@@ -228,14 +239,12 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public void setAttribute(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
+		attrs.put(arg0, arg1);
 	}
 
 	@Override
 	public void setCharacterEncoding(String arg0) throws UnsupportedEncodingException {
-		// TODO Auto-generated method stub
-
+		this.characterEncoding = arg0;
 	}
 
 	@Override
