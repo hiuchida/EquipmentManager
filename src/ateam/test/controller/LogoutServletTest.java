@@ -27,6 +27,7 @@ public class LogoutServletTest extends TestCase {
 		invoke("doGet", request, response);
 		assertNull(request.getSession(false));
 		assertEquals("LoginServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost1() throws Exception {
@@ -35,6 +36,7 @@ public class LogoutServletTest extends TestCase {
 		invoke("doPost", request, response);
 		assertNull(request.getSession(false));
 		assertEquals("LoginServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 }

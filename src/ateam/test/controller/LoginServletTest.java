@@ -55,6 +55,7 @@ public class LoginServletTest extends TestCase {
 		assertNotNull(user);
 		assertEquals("", user.getPassword());
 		assertEquals("MyPageServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost2() throws Exception {
@@ -64,8 +65,8 @@ public class LoginServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
 		assertEquals("UTF-8", request.getCharacterEncoding());
-		assertEquals(null, response.getRedirect());
 		assertEquals("ログインに失敗しました。", request.getAttribute("errorMessage"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/login.jsp", request.getRequestDispatcherPath());
 	}
 

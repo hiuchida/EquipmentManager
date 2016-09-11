@@ -28,6 +28,7 @@ public class MyPageServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet2() throws Exception {
@@ -36,9 +37,9 @@ public class MyPageServletTest extends TestCase {
 		HttpServletRequestMock request = new HttpServletRequestMock(true, user);
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(1, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/myPage.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -47,6 +48,7 @@ public class MyPageServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost2() throws Exception {
@@ -55,9 +57,9 @@ public class MyPageServletTest extends TestCase {
 		HttpServletRequestMock request = new HttpServletRequestMock(true, user);
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(1, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/myPage.jsp", request.getRequestDispatcherPath());
 	}
 

@@ -28,6 +28,7 @@ public class ReturnBihinServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet2() throws Exception {
@@ -36,6 +37,7 @@ public class ReturnBihinServletTest extends TestCase {
 		invoke("doGet", request, response);
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("MyPageServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet3() throws Exception {
@@ -71,6 +73,7 @@ public class ReturnBihinServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost2() throws Exception {
@@ -79,6 +82,7 @@ public class ReturnBihinServletTest extends TestCase {
 		invoke("doPost", request, response);
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("MyPageServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost3() throws Exception {

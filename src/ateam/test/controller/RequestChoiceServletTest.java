@@ -27,6 +27,7 @@ public class RequestChoiceServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet2() throws Exception {
@@ -35,6 +36,7 @@ public class RequestChoiceServletTest extends TestCase {
 		invoke("doGet", request, response);
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("BihinListServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet3() throws Exception {
@@ -52,6 +54,7 @@ public class RequestChoiceServletTest extends TestCase {
 		assertEquals("2016-12-24", request.getAttribute("returnDay"));
 		assertEquals(null, response.getRedirect());
 		assertEquals("/requestSuccess.jsp", request.getRequestDispatcherPath());
+		//undo
 		BihinDAO dao = BihinDAO.getInstance();
 		assertEquals(1, dao.update("B001", "U001"));
 	}
@@ -96,6 +99,7 @@ public class RequestChoiceServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost2() throws Exception {
@@ -104,6 +108,7 @@ public class RequestChoiceServletTest extends TestCase {
 		invoke("doPost", request, response);
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("BihinListServlet", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost3() throws Exception {
@@ -121,6 +126,7 @@ public class RequestChoiceServletTest extends TestCase {
 		assertEquals("2016-12-24", request.getAttribute("returnDay"));
 		assertEquals(null, response.getRedirect());
 		assertEquals("/requestSuccess.jsp", request.getRequestDispatcherPath());
+		//undo
 		BihinDAO dao = BihinDAO.getInstance();
 		assertEquals(1, dao.update("B001", "U001"));
 	}

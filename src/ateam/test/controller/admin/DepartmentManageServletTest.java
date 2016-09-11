@@ -28,16 +28,17 @@ public class DepartmentManageServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet2() throws Exception {
 		HttpServletRequestMock request = new HttpServletRequestMock(true, new User());
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -46,11 +47,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("add", "true");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の登録に成功しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -59,11 +60,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("add", "false");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の登録に失敗しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -72,11 +73,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("delete", "true");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の削除に成功しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -85,11 +86,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("delete", "false");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の削除に失敗しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -98,16 +99,17 @@ public class DepartmentManageServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost2() throws Exception {
 		HttpServletRequestMock request = new HttpServletRequestMock(true, new User());
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -116,11 +118,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("add", "true");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の登録に成功しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -129,11 +131,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("add", "false");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の登録に失敗しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -142,11 +144,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("delete", "true");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の削除に成功しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -155,11 +157,11 @@ public class DepartmentManageServletTest extends TestCase {
 		request.setParameter("delete", "false");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		assertEquals("部署の削除に失敗しました", request.getAttribute("errorMessage"));
 		List<Department> list = (List<Department>)request.getAttribute("deptList");
 		assertEquals(5, list.size());
+		assertEquals(null, response.getRedirect());
 		assertEquals("/admin/deptList.jsp", request.getRequestDispatcherPath());
 	}
 

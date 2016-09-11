@@ -28,18 +28,19 @@ public class BihinSearchServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoGet2() throws Exception {
 		HttpServletRequestMock request = new HttpServletRequestMock(true, new User());
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(15, list.size());
 		assertNull(request.getAttribute("bihinKana"));
 		assertNull(request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -48,12 +49,12 @@ public class BihinSearchServletTest extends TestCase {
 		request.setParameter("status", "success");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(14, list.size());
 		assertNull(request.getAttribute("bihinKana"));
 		assertEquals("success", request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -62,12 +63,12 @@ public class BihinSearchServletTest extends TestCase {
 		request.setParameter("search", "フセン");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(3, list.size());
 		assertEquals("フセン", request.getAttribute("bihinKana"));
 		assertNull(request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -77,12 +78,12 @@ public class BihinSearchServletTest extends TestCase {
 		request.setParameter("status", "success");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doGet", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(2, list.size());
 		assertEquals("フセン", request.getAttribute("bihinKana"));
 		assertEquals("success", request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -91,18 +92,19 @@ public class BihinSearchServletTest extends TestCase {
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
 		assertEquals("LoginServlet?timeout=true", response.getRedirect());
+		assertEquals(null, request.getRequestDispatcherPath());
 	}
 
 	public void testDoPost2() throws Exception {
 		HttpServletRequestMock request = new HttpServletRequestMock(true, new User());
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(15, list.size());
 		assertNull(request.getAttribute("bihinKana"));
 		assertNull(request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -111,12 +113,12 @@ public class BihinSearchServletTest extends TestCase {
 		request.setParameter("status", "success");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(14, list.size());
 		assertNull(request.getAttribute("bihinKana"));
 		assertEquals("success", request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -125,12 +127,12 @@ public class BihinSearchServletTest extends TestCase {
 		request.setParameter("search", "フセン");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(3, list.size());
 		assertEquals("フセン", request.getAttribute("bihinKana"));
 		assertNull(request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
@@ -140,12 +142,12 @@ public class BihinSearchServletTest extends TestCase {
 		request.setParameter("status", "success");
 		HttpServletResponseMock response = new HttpServletResponseMock();
 		invoke("doPost", request, response);
-		assertEquals(null, response.getRedirect());
 		assertEquals("UTF-8", request.getCharacterEncoding());
 		List<Bihin> list = (List<Bihin>)request.getAttribute("bihinList");
 		assertEquals(2, list.size());
 		assertEquals("フセン", request.getAttribute("bihinKana"));
 		assertEquals("success", request.getAttribute("statusName"));
+		assertEquals(null, response.getRedirect());
 		assertEquals("/bihinList.jsp", request.getRequestDispatcherPath());
 	}
 
