@@ -1,4 +1,4 @@
-package ateam.test.util;
+package ateam.test.servlet;
 
 import java.util.Enumeration;
 import java.util.HashMap;

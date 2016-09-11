@@ -1,4 +1,4 @@
-package ateam.test.util;
+package ateam.test.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -175,8 +175,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public RequestDispatcher getRequestDispatcher(String arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return new RequestDispatcherMock();
 	}
 
 	@Override

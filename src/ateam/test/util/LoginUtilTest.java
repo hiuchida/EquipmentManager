@@ -1,6 +1,8 @@
 package ateam.test.util;
 
 import ateam.model.User;
+import ateam.test.servlet.HttpServletRequestMock;
+import ateam.test.servlet.HttpServletResponseMock;
 import ateam.util.LoginUtil;
 import junit.framework.TestCase;
 
