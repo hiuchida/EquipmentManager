@@ -42,6 +42,7 @@ public class ReturnBihinServlet extends HttpServlet {
 		if (!LoginUtil.isLogined(request, response)) {
 			return;
 		}
+		request.setCharacterEncoding("UTF-8");
 		User user = (User) session.getAttribute("user");
 		String bihinID = request.getParameter("bihinID");
 		// 空文字判定
