@@ -42,9 +42,16 @@ public class HttpServletRequestMock implements HttpServletRequest {
 		params.put(key, value);
 	}
 
+	public void invalidateSession() {
+		session = null;
+	}
+
 	public HttpServletRequestMock(boolean bSession, User user) {
 		if (bSession) {
-			session = new HttpSessionMock(user);
+			session = new HttpSessionMock(this);
+			if (user != null) {
+				session.setAttribute("user", user);
+			}
 		}
 	}
 
@@ -381,12 +388,14 @@ public class HttpServletRequestMock implements HttpServletRequest {
 
 	@Override
 	public HttpSession getSession() {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession(true);
 	}
 
 	@Override
 	public HttpSession getSession(boolean arg0) {
+		if (arg0 && session == null) {
+			session = new HttpSessionMock(this);
+		}
 		return session;
 	}
 

@@ -8,16 +8,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
-import ateam.model.User;
-
 public class HttpSessionMock implements HttpSession {
 
+	private HttpServletRequestMock request;
 	private Map<String, Object> attrs = new HashMap<String, Object>();
 
-	public HttpSessionMock(User user) {
-		if (user != null) {
-			attrs.put("user", user);
-		}
+	public HttpSessionMock(HttpServletRequestMock request) {
+		this.request = request;
 	}
 
 	@Override
@@ -81,8 +78,7 @@ public class HttpSessionMock implements HttpSession {
 
 	@Override
 	public void invalidate() {
-		// TODO Auto-generated method stub
-
+		request.invalidateSession();
 	}
 
 	@Override
@@ -111,8 +107,7 @@ public class HttpSessionMock implements HttpSession {
 
 	@Override
 	public void setAttribute(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
+		attrs.put(arg0, arg1);
 	}
 
 	@Override
